@@ -1,4 +1,4 @@
-{
+  {
   "name": "web-historian",
   "version": "0.0.1",
   "main": "web/basic-server.js",

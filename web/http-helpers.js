@@ -10,9 +10,22 @@ exports.headers = headers = {
   'Content-Type': "text/html"
 };
 
+
+exports.serveIntro = function(res) {
+  res.writeHead(200, exports.headers);
+  exports.serveAssets(res);
+};
+
 exports.serveAssets = function(res, asset) {
   // Write some code here that helps serve up your static files!
   // (Static files are things like html (yours or archived from others...), css, or anything that doesn't change often.)
+  var startPage = "";
+  fs.readFile('../web/public/index.html', String, function(err, data){
+    // if(err) throw 'error!';
+    startPage += data;
+    res.end(startPage);
+  });
+
 };
 
 // As you progress, keep thinking about what helper functions you can put here!

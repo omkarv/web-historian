@@ -7,3 +7,4 @@ var server = http.createServer(handler.handleRequest);
 console.log("Listening on http://" + ip + ":" + port);
 server.listen(port, ip);
 
+//this should contain the routing information
