@@ -1,6 +1,7 @@
 var fs = require('fs');
 var path = require('path');
 var _ = require('underscore');
+var helpers = require('../web/http-helpers');
 
 /*
  * You will need to reuse the same paths many times over in the course of this sprint.
@@ -11,7 +12,7 @@ var _ = require('underscore');
 
 exports.paths = {
   'siteAssets' : path.join(__dirname, '../web/public'),
-  'archivedSites' : path.join(__dirname, '../archives/sites'),
+  'archivedSites' : '../archives/sites',
   'list' : path.join(__dirname, '../archives/sites.txt')
 };
 
@@ -26,15 +27,37 @@ exports.initialize = function(pathsObj){
 // modularize your code. Keep it clean!
 
 exports.readListOfUrls = function(){
+   fs.readFile(exports.paths['list'], function(err, data){
+    if(err) {
+      // console.log(err);
+      throw 'error!';
+    }
+    // page += data;
+    // res.end(page);
+   });
 };
 
 exports.isUrlInList = function(){
+
 };
 
 exports.addUrlToList = function(){
 };
 
-exports.isURLArchived = function(){
+exports.isURLArchived = function(res, url){
+  path.exists(path.join(exports.paths['archivedSites'], url), function(exists) {
+    if (exists) {
+      // do something
+      console.log('it is archived, woo!');
+      //serve up the archived page -> return control to http-helpers
+      helpers.serveAssets(res, url);
+
+    } else{
+      console.log('boo hoo it doesnt exist');
+      //add the URL to the list
+      exports.addUrlToList(url);
+    }
+  });
 };
 
 exports.downloadUrls = function(){

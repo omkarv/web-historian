@@ -7,13 +7,13 @@ var http = require('./http-helpers');
 exports.handleRequest = function (req, res) {
 
   var httpVerbs = {
-    'GET' : http.serveIntro//,
-   // 'POST' : queryArchive,
+    'GET' : http.serveIntro,
+    'POST' : http.queryArchive
     //'OPTIONS' : options
   };
   var requestVerb = req.method;
   // GET REQUEST
-  (httpVerbs[requestVerb])(res);
+  (httpVerbs[requestVerb])(res, req);
 
 
 };
