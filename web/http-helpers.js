@@ -34,11 +34,13 @@ exports.queryArchive = function(res, req) {
     var reqURL = body.substr(4);
     console.log('POSTed: ' + reqURL);
     res.writeHead(200, exports.headers);
-    exports.serveAssets(res, 'loading');
+    // exports.serveAssets(res, 'loading');
     archive.isURLArchived(res, reqURL);
+
+    //listen for served event, then serve the fetched url
   });
   // console.log(res);
-  ;
+
 };
 
 exports.serveAssets = function(res, asset) {
@@ -52,7 +54,7 @@ exports.serveAssets = function(res, asset) {
   var location = "";
   if(!assetLookup[asset]) {
     location = archive.paths.archivedSites + '/' + asset;
-    console.log('location is:' +location);
+    console.log('location is:' + location);
   } else {
     location = assetLookup[asset];
   }
